@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>We Sales · Jota</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFBEA;
+  --surface:#FFFFFF;
+  --yellow:#FFD300;
+  --yellow-deep:#E8BE00;
+  --navy:#0A2540;
+  --navy-soft:#5B7086;
+  --green:#1DB954;
+  --green-deep:#169943;
+  --line:rgba(10,37,64,0.14);
+  --line-strong:rgba(10,37,64,0.28);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--navy);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+h1,h2,h3{text-wrap:balance;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:72px;background:rgba(255,251,234,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 44px;}
+.nav-logo img{height:34px;display:block;}
+.nav-right{display:flex;align-items:center;gap:18px;}
+.nav-tag{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--navy-soft);border-left:1px solid var(--line-strong);padding-left:18px;}
+.nav-tag:first-child{border-left:none;padding-left:0;}
+
+/* PROGRESS */
+.progress{position:fixed;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:150;}
+.pd{width:6px;height:6px;border-radius:3px;background:var(--line-strong);transition:all .3s ease;cursor:pointer;}
+.pd.active{background:var(--navy);height:24px;}
+
+section{min-height:100vh;padding:120px 56px 90px;display:flex;flex-direction:column;justify-content:center;max-width:960px;margin:0 auto;}
+
+/* HERO */
+.hero{max-width:100%;min-height:100vh;padding:0;align-items:center;text-align:left;position:relative;overflow:hidden;background:var(--yellow);}
+.hero-inner{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:150px 56px 90px;width:100%;}
+.hero-tagchip{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:var(--yellow);font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:8px 16px;border-radius:99px;margin-bottom:28px;}
+.hero-title{font-size:clamp(34px,5.6vw,58px);font-weight:900;line-height:1.22;letter-spacing:-1.6px;color:var(--navy);margin-bottom:22px;max-width:760px;}
+.hero-title em{font-style:normal;color:var(--navy);background-image:linear-gradient(var(--green) 0 0);background-repeat:no-repeat;background-size:100% 0.32em;background-position:0 90%;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+.hero-sub{font-size:clamp(15px,1.7vw,18px);font-weight:500;color:rgba(10,37,64,0.72);line-height:1.7;max-width:600px;margin-bottom:44px;}
+.hero-stats{display:flex;gap:0;border:2px solid var(--navy);border-radius:18px;overflow:hidden;background:var(--surface);max-width:fit-content;}
+.hs{padding:20px 30px;text-align:left;border-right:2px solid var(--navy);}
+.hs:last-child{border-right:none;}
+.hs-num{font-size:22px;font-weight:800;color:var(--navy);line-height:1;font-variant-numeric:tabular-nums;}
+.hs-lbl{font-size:11px;color:var(--navy-soft);margin-top:6px;font-weight:600;}
+.scroll-cue{display:flex;align-items:center;gap:10px;color:var(--navy);font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-top:56px;}
+.scroll-line{width:44px;height:2px;background:var(--navy);}
+
+/* EYEBROW / TITLES */
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--green-deep);margin-bottom:12px;}
+.stitle{font-size:clamp(26px,4vw,42px);font-weight:800;line-height:1.14;letter-spacing:-1.1px;margin-bottom:16px;color:var(--navy);}
+.stitle em{font-style:normal;background:var(--yellow);padding:1px 8px;border-radius:6px;}
+.ssub{font-size:16px;font-weight:500;color:var(--navy-soft);line-height:1.7;max-width:600px;margin-bottom:40px;}
+
+/* PROBLEM CARDS */
+.prob-list{display:flex;flex-direction:column;gap:12px;}
+.prob-item{display:flex;align-items:flex-start;gap:18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px;transition:border-color .2s;}
+.prob-item:hover{border-color:var(--line-strong);}
+.prob-ico{width:42px;height:42px;flex-shrink:0;border-radius:11px;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;}
+.prob-ico svg{width:20px;height:20px;stroke:var(--navy);}
+.prob-title{font-size:15px;font-weight:700;margin-bottom:5px;color:var(--navy);}
+.prob-body{font-size:14px;color:var(--navy-soft);line-height:1.6;}
+
+/* SCOPE: listing cards */
+.fase-wrap{display:flex;flex-direction:column;gap:14px;}
+.fase{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:border-color .25s,box-shadow .25s;cursor:pointer;position:relative;}
+.fase.open{border-color:var(--navy);box-shadow:0 10px 28px -14px rgba(10,37,64,0.28);}
+.fase-head{display:flex;align-items:center;gap:16px;padding:22px 26px;user-select:none;}
+.fase-tagchip{flex-shrink:0;font-size:10px;font-weight:700;letter-spacing:.06em;padding:6px 11px;border-radius:7px;}
+.f1 .fase-tagchip{background:rgba(29,185,84,0.14);color:var(--green-deep);}
+.f2 .fase-tagchip{background:rgba(10,37,64,0.08);color:var(--navy);}
+.f3 .fase-tagchip{background:var(--yellow);color:var(--navy);}
+.f4 .fase-tagchip{background:rgba(10,37,64,0.08);color:var(--navy);}
+.fase-info{flex:1;}
+.fase-title{font-size:16px;font-weight:700;color:var(--navy);}
+.fase-sub{font-size:13px;color:var(--navy-soft);margin-top:3px;font-weight:500;}
+.fase-arrow{color:var(--navy-soft);transition:transform .3s,color .3s;flex-shrink:0;}
+.fase-arrow svg{width:20px;height:20px;}
+.fase.open .fase-arrow{transform:rotate(180deg);color:var(--navy);}
+.fase-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1);}
+.fase.open .fase-body{max-height:520px;}
+.fase-inner{padding:0 26px 28px;border-top:1px solid var(--line);padding-top:22px;}
+.dlist{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.dlist li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.65;color:rgba(10,37,64,0.82);}
+.dlist li::before{content:'';flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:8px;}
+
+/* ACOMPANHAMENTO */
+.acomp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.acomp-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;}
+.acomp-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.acomp-title svg{width:16px;height:16px;stroke:var(--green-deep);flex-shrink:0;}
+.acomp-body{font-size:14px;color:var(--navy-soft);line-height:1.65;}
+
+/* INVESTIMENTO: price tag */
+.invest-hero{position:relative;background:var(--navy);border-radius:22px;padding:48px 52px;margin-bottom:20px;overflow:hidden;}
+.invest-hero::before{content:'';position:absolute;right:-70px;top:50%;transform:translateY(-50%);width:170px;height:170px;border-radius:50%;background:rgba(255,211,0,0.08);}
+.invest-lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:16px;position:relative;}
+.invest-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:var(--navy);font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:99px;margin-bottom:20px;position:relative;}
+.invest-tag-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;position:relative;}
+.invest-strike{font-size:20px;font-weight:600;color:rgba(244,244,244,0.45);text-decoration:line-through;}
+.invest-tag{display:inline-flex;align-items:baseline;gap:6px;background:var(--yellow);color:var(--navy);border-radius:12px 12px 12px 4px;padding:16px 26px;}
+.invest-price{font-size:44px;font-weight:900;line-height:1;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;}
+.invest-period{font-size:14px;font-weight:600;color:rgba(10,37,64,0.6);}
+.invest-after{font-size:13px;color:rgba(244,244,244,0.6);margin-top:14px;position:relative;}
+.invest-after strong{color:var(--yellow);font-weight:700;}
+.invest-detail{font-size:13px;color:rgba(244,244,244,0.72);margin-top:18px;max-width:560px;line-height:1.7;position:relative;}
+.invest-fine{font-size:12px;color:var(--navy-soft);margin-top:6px;}
+
+/* CTA */
+.cta-sec{max-width:100%;background:var(--yellow);text-align:left;display:flex;flex-direction:column;justify-content:center;padding:110px 56px;position:relative;min-height:70vh;}
+.cta-inner{max-width:960px;margin:0 auto;width:100%;}
+.cta-title{font-size:clamp(28px,4.6vw,48px);font-weight:900;line-height:1.08;letter-spacing:-1.4px;margin-bottom:18px;color:var(--navy);}
+.cta-sub{font-size:16px;color:rgba(10,37,64,0.72);line-height:1.7;max-width:520px;margin-bottom:40px;font-weight:500;}
+.cta-box{background:var(--navy);border-radius:18px;padding:30px 36px;display:inline-flex;flex-direction:column;gap:12px;margin-bottom:24px;max-width:fit-content;}
+.cta-line{display:flex;align-items:center;gap:10px;font-size:15px;color:rgba(244,244,244,0.92);font-weight:500;}
+.cta-line svg{width:17px;height:17px;stroke:var(--yellow);flex-shrink:0;}
+.cta-line a{color:var(--yellow);text-decoration:none;font-weight:600;}
+.cta-line a:hover{text-decoration:underline;}
+.cta-foot{font-size:12px;color:rgba(10,37,64,0.55);display:flex;align-items:center;gap:10px;}
+.cta-foot img{height:20px;opacity:0.85;}
+
+@media(max-width:768px){
+nav{padding:0 20px;}
+.nav-tag{display:none;}
+section{padding:100px 22px 70px;}
+.hero-inner{padding:120px 22px 70px;}
+.hero-stats{flex-direction:column;}
+.hs{border-right:none;border-bottom:2px solid var(--navy);}
+.hs:last-child{border-bottom:none;}
+.acomp-grid{grid-template-columns:1fr;}
+.progress{display:none;}
+.invest-hero{padding:36px 26px;}
+.cta-sec{padding:90px 22px;}
+.cta-box{padding:24px 26px;}
+}
+
+@media print{
+body{background:#fff;}
+nav,.progress,.scroll-cue{display:none!important;}
+section{min-height:auto;page-break-inside:avoid;padding:34px 30px;}
+.hero{min-height:auto;}
+.fase-body{max-height:none!important;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><img src="data:image/png;base64,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" alt="We Sales"></div>
+  <div class="nav-right">
+    <div class="nav-tag">Assessoria para Marketplaces</div>
+    <div class="nav-tag">Jota · 2026</div>
+  </div>
+</nav>
+
+<div class="progress" id="progressDots"></div>
+
+<!-- HERO -->
+<section class="hero" id="s0">
+  <div class="hero-inner">
+    <div class="hero-tagchip">We Sales · Jota</div>
+    <h1 class="hero-title">Seus produtos vendendo em qualquer marketplace, <em>com gestão de verdade.</em></h1>
+    <p class="hero-sub">Seja pra abrir sua primeira conta ou organizar o que já está publicado, cuidamos de tudo todo mês: cadastro, campanha, relatório e suporte ao cliente, em cada canal onde a Jota vende.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-num">2 canais</div><div class="hs-lbl">Plataformas contratadas</div></div>
+      <div class="hs"><div class="hs-num">Mensal</div><div class="hs-lbl">Relatório de desempenho</div></div>
+      <div class="hs"><div class="hs-num">Contínuo</div><div class="hs-lbl">Suporte ao cliente</div></div>
+    </div>
+    <div class="scroll-cue"><div class="scroll-line"></div><span>Rolar para ver a proposta</span></div>
+  </div>
+</section>
+
+<!-- CONTEXTO -->
+<section id="s1">
+  <div class="eyebrow">01 · Por que gestão contínua</div>
+  <h2 class="stitle">Ter conta no marketplace <em>não é o mesmo</em><br>que vender de verdade nele.</h2>
+  <p class="ssub">Seja abrindo a loja do zero ou organizando o que já está publicado, o que decide se o produto vende é quem cuida da ficha, da campanha e do cliente depois disso.</p>
+
+  <div class="prob-list">
+    <div class="prob-item">
+      <div class="prob-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+      <div><div class="prob-title">Fichas de produto abaixo do potencial</div><div class="prob-body">Título, imagens e descrição sem otimização perdem posição na busca em qualquer marketplace, mesmo com bom preço.</div></div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+      <div><div class="prob-title">Sem acompanhamento real de venda</div><div class="prob-body">Sem relatório mensal, fica difícil saber qual anúncio, categoria ou campanha está puxando o resultado pra baixo.</div></div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+      <div><div class="prob-title">Promoções e campanhas mal aproveitadas</div><div class="prob-body">Datas fortes de marketplace exigem configuração de campanha com antecedência; sem isso, o desconto não aparece pro comprador certo.</div></div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div><div class="prob-title">Cliente sem resposta rápida</div><div class="prob-body">Pergunta ou reclamação parada demais em qualquer marketplace derruba a reputação da loja e trava novas vendas.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ESCOPO -->
+<section id="s2">
+  <div class="eyebrow">02 · We Sales · Assessoria para Marketplaces</div>
+  <h2 class="stitle">Gestão contínua das <em>2 plataformas da Jota.</em></h2>
+  <p class="ssub">Clique em cada frente pra ver o que entra no acompanhamento mensal.</p>
+
+  <div class="fase-wrap">
+
+    <div class="fase f1" onclick="toggleFase(this)">
+      <div class="fase-head">
+        <div class="fase-tagchip">MULTICANAL</div>
+        <div class="fase-info"><div class="fase-title">Gestão de Marketplaces</div><div class="fase-sub">Da conta zerada ao catálogo otimizado</div></div>
+        <div class="fase-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="fase-body"><div class="fase-inner">
+        <ul class="dlist">
+          <li>Abertura e configuração de conta em marketplaces novos, pra quem ainda não vende no canal</li>
+          <li>Cadastro de produtos novos com título, imagens e descrição otimizados pra busca</li>
+          <li>Organização e revisão contínua do catálogo já publicado</li>
+          <li>Criação e ajuste de campanhas dentro de cada uma das 2 plataformas contratadas</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="fase f2" onclick="toggleFase(this)">
+      <div class="fase-head">
+        <div class="fase-tagchip">DADOS</div>
+        <div class="fase-info"><div class="fase-title">Análise de Desempenho</div><div class="fase-sub">Monitoramento de vendas e relatório mensal</div></div>
+        <div class="fase-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="fase-body"><div class="fase-inner">
+        <ul class="dlist">
+          <li>Monitoramento contínuo de vendas por produto e por canal</li>
+          <li>Relatório detalhado entregue todo mês, com leitura do que puxou o resultado</li>
+          <li>Base pra decisão: o que reforçar, pausar ou reprecificar</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="fase f3" onclick="toggleFase(this)">
+      <div class="fase-head">
+        <div class="fase-tagchip">ESTRATÉGIA</div>
+        <div class="fase-info"><div class="fase-title">Apoio Estratégico</div><div class="fase-sub">Promoções e campanhas segmentadas</div></div>
+        <div class="fase-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="fase-body"><div class="fase-inner">
+        <ul class="dlist">
+          <li>Sugestões de estratégia pra aumento de vendas mês a mês</li>
+          <li>Planejamento de promoções nas datas fortes de cada marketplace</li>
+          <li>Campanhas segmentadas pro público certo de cada canal</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="fase f4" onclick="toggleFase(this)">
+      <div class="fase-head">
+        <div class="fase-tagchip">CLIENTE</div>
+        <div class="fase-info"><div class="fase-title">Atendimento ao Cliente</div><div class="fase-sub">Suporte e resolução de dúvidas</div></div>
+        <div class="fase-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="fase-body"><div class="fase-inner">
+        <ul class="dlist">
+          <li>Resolução de dúvidas dos clientes dos marketplaces conforme solicitações</li>
+          <li>Suporte pra manter a reputação da loja saudável em ambos os canais</li>
+        </ul>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACOMPANHAMENTO -->
+<section id="s3">
+  <div class="eyebrow">03 · Como acompanhamos</div>
+  <h2 class="stitle">Relatório fixo, <em>suporte sob demanda.</em></h2>
+
+  <div class="acomp-grid">
+    <div class="acomp-card">
+      <div class="acomp-title"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Relatório mensal</div>
+      <div class="acomp-body">Desempenho de vendas por canal e sugestões de melhoria, entregues todo mês, canal por canal.</div>
+    </div>
+    <div class="acomp-card">
+      <div class="acomp-title"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg>Suporte sob demanda</div>
+      <div class="acomp-body">Qualquer inconsistência no anúncio ou no marketplace é reportada imediatamente, sem esperar o próximo ciclo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTIMENTO -->
+<section id="s4">
+  <div class="eyebrow">04 · Investimento</div>
+  <h2 class="stitle">Condição especial <em>de lançamento.</em></h2>
+
+  <div class="invest-hero">
+    <div class="invest-lbl">Investimento mensal · We Sales × Jota</div>
+    <div class="invest-badge">5% off nos 6 primeiros meses</div>
+    <div class="invest-tag-row">
+      <span class="invest-strike">R$ 1.800</span>
+      <span class="invest-tag"><span class="invest-price">R$ 1.710</span><span class="invest-period">/mês</span></span>
+    </div>
+    <div class="invest-after">A partir do 7º mês, valor integral de <strong>R$ 1.800/mês</strong>.</div>
+    <div class="invest-detail">Gestão de Marketplaces, Análise de Desempenho, Apoio Estratégico e Atendimento ao Cliente para as 2 plataformas contratadas pela Jota, com relatório mensal e suporte contínuo.</div>
+  </div>
+  <div class="invest-fine">Contrato de 6 meses. Pagamento até o dia 10 de cada mês. Desconto de 5% aplicado automaticamente do 1º ao 6º mês.</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec" id="s5">
+  <div class="cta-inner">
+    <div class="eyebrow" style="color:var(--navy);opacity:0.65;">05 · Próximos passos</div>
+    <h2 class="cta-title">Vamos <em style="background:var(--surface);">colocar pra vender?</em></h2>
+    <p class="cta-sub">Ficamos à disposição pra alinhar qualquer detalhe antes de começar.</p>
+    <div class="cta-box">
+      <div class="cta-line"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="https://wa.me/5516992266718">(16) 99226-6718</a></div>
+      <div class="cta-line"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg><a href="mailto:contato@wesalesassessoria.com.br">contato@wesalesassessoria.com.br</a></div>
+    </div>
+    <div class="cta-foot"><img src="data:image/png;base64,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" alt="We Sales">&middot; We Sales Assessoria para Marketplaces</div>
+  </div>
+</section>
+
+<script>
+var sids = ['s0','s1','s2','s3','s4','s5'];
+var dotsWrap = document.getElementById('progressDots');
+sids.forEach(function(id, i){
+  var d = document.createElement('div');
+  d.className = 'pd' + (i === 0 ? ' active' : '');
+  d.onclick = function(){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); };
+  dotsWrap.appendChild(d);
+});
+var dots = dotsWrap.querySelectorAll('.pd');
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      var idx = sids.indexOf(entry.target.id);
+      if(idx >= 0) dots.forEach(function(d,j){ d.classList.toggle('active', j === idx); });
+    }
+  });
+}, {threshold: 0.35});
+sids.forEach(function(id){ var el = document.getElementById(id); if(el) observer.observe(el); });
+
+function toggleFase(el){
+  var open = el.classList.contains('open');
+  document.querySelectorAll('.fase').forEach(function(f){ f.classList.remove('open'); });
+  if(!open){ el.classList.add('open'); }
+}
+</script>
+
+</body>
+</html>
